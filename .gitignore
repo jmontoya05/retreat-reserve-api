@@ -40,7 +40,7 @@ bin/
 .DS_Store
 
 # Application
-storage/
+storage/images
 logs/
 *.log
 
