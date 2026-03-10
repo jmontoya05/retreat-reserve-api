@@ -2,8 +2,8 @@ package com.retreatreserve.domain.exception.reservation;
 
 import com.retreatreserve.domain.exception.DomainException;
 
-public class InvalidDateRangeException extends DomainException {
-    public InvalidDateRangeException(String message) {
+public class IllegalStateTransitionException extends DomainException {
+    public IllegalStateTransitionException(String message) {
         super(message);
     }
 }

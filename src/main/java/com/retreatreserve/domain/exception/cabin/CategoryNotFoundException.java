@@ -2,8 +2,8 @@ package com.retreatreserve.domain.exception.cabin;
 
 import com.retreatreserve.domain.exception.DomainException;
 
-public class InvalidPriceException extends DomainException {
-    public InvalidPriceException(String message) {
+public class CategoryNotFoundException extends DomainException {
+    public CategoryNotFoundException(String message) {
         super(message);
     }
 }

@@ -1,4 +1,9 @@
 package com.retreatreserve.domain.exception.user;
 
-public class EmailAlreadyExistsException {
+import com.retreatreserve.domain.exception.DomainException;
+
+public class EmailAlreadyExistsException extends DomainException {
+    public EmailAlreadyExistsException(String message) {
+        super(message);
+    }
 }
