@@ -51,3 +51,6 @@ logs/
 # Test coverage
 coverage/
 *.exec
+
+# Documentation
+docs/

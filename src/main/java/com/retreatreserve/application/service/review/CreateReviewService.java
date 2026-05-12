@@ -47,7 +47,7 @@ public class CreateReviewService implements CreateReviewUseCase {
         Rating rating = new Rating(command.rating());
         Review review = new Review(
             UUID.fromString(command.userId()),
-            UUID.fromString(command.cabinId()),
+            UUID.fromString(reservation.getCabinId().toString()),
             reservationId,
             rating,
             command.comment()
@@ -55,7 +55,7 @@ public class CreateReviewService implements CreateReviewUseCase {
         
         Review savedReview = reviewRepository.save(review);
         
-        ratingCalculationService.updateCabinRating(UUID.fromString(command.cabinId()));
+        ratingCalculationService.updateCabinRating(UUID.fromString(reservation.getCabinId().toString()));
         
         log.info("Review created: {}", savedReview.getId());
         return savedReview;

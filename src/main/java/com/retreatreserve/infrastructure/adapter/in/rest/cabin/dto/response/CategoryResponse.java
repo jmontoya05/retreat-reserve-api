@@ -1,4 +1,8 @@
 package com.retreatreserve.infrastructure.adapter.in.rest.cabin.dto.response;
 
-public class CategoryResponse {
-}
+public record CategoryResponse(
+    String id,
+    String name,
+    String description,
+    String imageUrl
+) {}

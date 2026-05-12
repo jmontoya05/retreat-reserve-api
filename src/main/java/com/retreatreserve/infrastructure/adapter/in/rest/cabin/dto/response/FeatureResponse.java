@@ -1,4 +1,8 @@
 package com.retreatreserve.infrastructure.adapter.in.rest.cabin.dto.response;
 
-public class FeatureResponse {
-}
+public record FeatureResponse(
+    String id,
+    String name,
+    String iconUrl,
+    String description
+) {}
