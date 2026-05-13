@@ -4,13 +4,13 @@ import com.retreatreserve.application.command.iam.RegisterUserCommand;
 import com.retreatreserve.application.port.in.iam.RegisterUserUseCase;
 import com.retreatreserve.application.port.out.notification.EmailService;
 import com.retreatreserve.application.port.out.persistence.UserRepository;
+import com.retreatreserve.application.port.out.security.PasswordEncoder;
 import com.retreatreserve.domain.exception.user.EmailAlreadyExistsException;
 import com.retreatreserve.domain.model.iam.Email;
 import com.retreatreserve.domain.model.iam.FullName;
 import com.retreatreserve.domain.model.iam.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

@@ -36,7 +36,6 @@ public class User {
      * Creates a new User.
      */
     public User(FullName fullName, Email email, String passwordHash, String phoneNumber) {
-        this.id = UUID.randomUUID();
         this.fullName = Objects.requireNonNull(fullName, "Full name cannot be null");
         this.email = Objects.requireNonNull(email, "Email cannot be null");
         this.passwordHash = Objects.requireNonNull(passwordHash, "Password hash cannot be null");
