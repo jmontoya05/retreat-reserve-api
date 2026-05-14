@@ -48,6 +48,7 @@ public class CancelReservationService implements CancelReservationUseCase {
                     user.getFullName().getFullName(),
                     cabin.getName()
                 );
+                log.info("Sending cancellation email to: {}", user.getEmail().getValue());
             }
         } catch (Exception e) {
             log.error("Failed to send cancellation email", e);

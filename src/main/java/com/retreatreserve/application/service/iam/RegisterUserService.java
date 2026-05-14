@@ -55,7 +55,7 @@ public class RegisterUserService implements RegisterUserUseCase {
                 savedUser.getFullName().getFullName(),
                 verificationToken
             );
-            log.info("Verification email sent to: {}", savedUser.getEmail().getValue());
+            log.info("Sending verification email to: {}", savedUser.getEmail().getValue());
         } catch (Exception e) {
             log.error("Failed to send verification email", e);
         }

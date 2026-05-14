@@ -100,7 +100,7 @@ public class CreateReservationService implements CreateReservationUseCase {
                 dateRange.getCheckOutDate().toString(),
                 totalPrice.toString()
             );
-            log.info("Reservation confirmation email sent to: {}", user.getEmail().getValue());
+            log.info("Sending reservation confirmation email to: {}", user.getEmail().getValue());
         } catch (Exception e) {
             log.error("Failed to send confirmation email", e);
         }
