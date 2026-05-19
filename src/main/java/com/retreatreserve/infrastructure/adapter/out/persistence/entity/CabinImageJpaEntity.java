@@ -25,8 +25,8 @@ public class CabinImageJpaEntity {
     @JoinColumn(name = "cabin_id", nullable = false)
     private CabinJpaEntity cabin;
     
-    @Column(name = "image_url", nullable = false, length = 500)
-    private String imageUrl;
+    @Column(name = "image_key", nullable = false, length = 500)
+    private String imageKey;
     
     @Column(name = "display_order", nullable = false)
     private Integer displayOrder;

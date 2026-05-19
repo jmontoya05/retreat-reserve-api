@@ -4,8 +4,8 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.retreatreserve.application.dto.iam.LoginResult;
 import com.retreatreserve.application.port.in.iam.LoginUseCase;
-import com.retreatreserve.application.port.in.iam.dto.LoginResult;
 import com.retreatreserve.application.port.out.persistence.UserRepository;
 import com.retreatreserve.application.port.out.security.AuthenticationService;
 import com.retreatreserve.application.port.out.security.TokenProvider;

@@ -23,8 +23,8 @@ spring:
 
   servlet:
     multipart:
-      max-file-size: 10MB
-      max-request-size: 10MB
+      max-file-size: 5MB
+      max-request-size: 8MB
   
 server:
   servlet:
@@ -39,16 +39,6 @@ jwt:
 email:
   from: ${EMAIL_FROM:retreatreserve@gmail.com}
   verification-base-url: ${VERIFICATION_BASE_URL:http://localhost:3000/auth}
-
-# Storage Configuration
-storage:
-  type: ${STORAGE_TYPE:local} # local or s3
-  local:
-    base-path: ${LOCAL_STORAGE_PATH:./storage/images}
-    url-prefix: ${LOCAL_URL_PREFIX:http://localhost:8080/api/v1/images}
-  s3:
-    bucket-name: ${AWS_S3_BUCKET:retreat-reserve-images}
-    region: ${AWS_REGION:us-east-1}
 
 # CORS Configuration
 cors:

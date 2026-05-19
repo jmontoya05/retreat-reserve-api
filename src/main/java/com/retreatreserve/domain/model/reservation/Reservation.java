@@ -38,7 +38,6 @@ public class Reservation {
      */
     public Reservation(UUID userId, UUID cabinId, DateRange dateRange,
                        GuestDetails guestDetails, BigDecimal totalPrice) {
-        this.id = UUID.randomUUID();
         this.userId = Objects.requireNonNull(userId, "User ID cannot be null");
         this.cabinId = Objects.requireNonNull(cabinId, "Cabin ID cannot be null");
         this.dateRange = Objects.requireNonNull(dateRange, "Date range cannot be null");

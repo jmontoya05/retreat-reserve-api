@@ -31,7 +31,7 @@ public class FeatureController {
                 .map(f -> new FeatureResponse(
                     f.getId().toString(),
                     f.getName(),
-                    f.getIconUrl(),
+                    f.getIconKey(),
                     f.getDescription()
                 ))
                 .toList()
@@ -41,14 +41,14 @@ public class FeatureController {
     @PostMapping
     public ResponseEntity<FeatureResponse> createFeature(@Valid @RequestBody CreateFeatureRequest request) {
         
-        CreateFeatureCommand command = new CreateFeatureCommand(request.name(), request.iconUrl(), request.description());
+        CreateFeatureCommand command = new CreateFeatureCommand(request.name(), request.iconKey(), request.description());
         Feature feature = createFeatureUseCase.execute(command);
         
         return ResponseEntity.status(HttpStatus.CREATED).body(
             new FeatureResponse(
                 feature.getId().toString(),
                 feature.getName(),
-                feature.getIconUrl(),
+                feature.getIconKey(),
                 feature.getDescription()
             )
         );

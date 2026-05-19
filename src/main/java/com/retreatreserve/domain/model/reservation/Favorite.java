@@ -17,7 +17,6 @@ public class Favorite {
     }
 
     public Favorite(UUID userId, UUID cabinId) {
-        this.id = UUID.randomUUID();
         this.userId = Objects.requireNonNull(userId, "User ID cannot be null");
         this.cabinId = Objects.requireNonNull(cabinId, "Cabin ID cannot be null");
         this.addedAt = LocalDateTime.now();

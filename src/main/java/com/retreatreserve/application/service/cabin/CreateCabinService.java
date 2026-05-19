@@ -69,7 +69,7 @@ public class CreateCabinService implements CreateCabinUseCase {
             command.pricePerNight()
         );
         
-        addImages(command.imageUrls(), cabin);        
+        addImages(command.imageKeys(), cabin);        
         featureIds.forEach(cabin::addFeature);
         addPolicies(command.policies(), cabin);        
         Cabin savedCabin = cabinRepository.save(cabin);
@@ -78,11 +78,11 @@ public class CreateCabinService implements CreateCabinUseCase {
         return savedCabin;
     }
 
-    private void addImages(List<String> imageUrls, Cabin cabin) {
-        if (imageUrls != null && !imageUrls.isEmpty()) {
-            for (int i = 0; i < imageUrls.size(); i++) {
+    private void addImages(List<String> imageKeys, Cabin cabin) {
+        if (imageKeys != null && !imageKeys.isEmpty()) {
+            for (int i = 0; i < imageKeys.size(); i++) {
                 CabinImage image = new CabinImage(
-                    imageUrls.get(i),
+                    imageKeys.get(i),
                     i,
                     i == 0
                 );

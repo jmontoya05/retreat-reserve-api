@@ -10,7 +10,7 @@ import lombok.Setter;
 @Getter
 public class CabinImage {
     private UUID id;
-    private String imageUrl;
+    private String imageKey;
     private Integer displayOrder;
     @Setter
     private Boolean isPrimary;
@@ -20,8 +20,7 @@ public class CabinImage {
     }
 
     public CabinImage(String imageUrl, Integer displayOrder, Boolean isPrimary) {
-        this.id = UUID.randomUUID();
-        this.imageUrl = Objects.requireNonNull(imageUrl, "Image url cannot be null");
+        this.imageKey = Objects.requireNonNull(imageUrl, "Image url cannot be null");
         this.displayOrder = displayOrder != null ? displayOrder : 0;
         this.isPrimary = isPrimary != null ? isPrimary : false;
         this.uploadedAt = LocalDateTime.now();
@@ -29,7 +28,7 @@ public class CabinImage {
 
     public CabinImage(UUID id, String imageUrl, Integer displayOrder, Boolean isPrimary, LocalDateTime uploadedAt) {
         this.id = id;
-        this.imageUrl = imageUrl;
+        this.imageKey = imageUrl;
         this.displayOrder = displayOrder;
         this.isPrimary = isPrimary;
         this.uploadedAt = uploadedAt;

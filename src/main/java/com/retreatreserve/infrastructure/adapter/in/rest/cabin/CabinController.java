@@ -6,7 +6,9 @@ import com.retreatreserve.application.port.in.cabin.CreateCabinUseCase;
 import com.retreatreserve.application.port.in.cabin.GetCabinDetailsUseCase;
 import com.retreatreserve.application.port.in.cabin.SearchCabinsUseCase;
 import com.retreatreserve.application.port.in.cabin.UpdateCabinPricingUseCase;
+import com.retreatreserve.application.port.in.storage.GeneratePreSignedUrlUseCase;
 import com.retreatreserve.domain.model.cabin.Cabin;
+import com.retreatreserve.domain.model.cabin.CabinImage;
 import com.retreatreserve.infrastructure.adapter.in.rest.cabin.dto.request.CreateCabinRequest;
 import com.retreatreserve.infrastructure.adapter.in.rest.cabin.dto.request.UpdatePricingRequest;
 import com.retreatreserve.infrastructure.adapter.in.rest.cabin.dto.response.CabinResponse;
@@ -19,7 +21,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/cabins")
@@ -30,6 +31,7 @@ public class CabinController {
     private final SearchCabinsUseCase searchCabinsUseCase;
     private final GetCabinDetailsUseCase getCabinDetailsUseCase;
     private final UpdateCabinPricingUseCase updateCabinPricingUseCase;
+    private final GeneratePreSignedUrlUseCase generatePreSignedUrlUseCase;
     private final CabinDtoMapper cabinDtoMapper;
     
     @PostMapping
@@ -37,13 +39,13 @@ public class CabinController {
         CreateCabinCommand command = mapCabinCommand(request);
         
         Cabin cabin = createCabinUseCase.execute(command);
-        return ResponseEntity.status(HttpStatus.CREATED).body(cabinDtoMapper.toResponse(cabin));
+        return ResponseEntity.status(HttpStatus.CREATED).body(cabinDtoMapper.toResponse(cabin, getImageUrls(cabin.getImages())));
     }
     
     @GetMapping("/{cabinId}")
     public ResponseEntity<CabinResponse> getCabin(@PathVariable String cabinId) {
         Cabin cabin = getCabinDetailsUseCase.execute(cabinId);
-        return ResponseEntity.ok(cabinDtoMapper.toResponse(cabin));
+        return ResponseEntity.ok(cabinDtoMapper.toResponse(cabin, getImageUrls(cabin.getImages())));
     }
     
     @GetMapping("/search")
@@ -58,8 +60,8 @@ public class CabinController {
         
         return ResponseEntity.ok(
             cabins.stream()
-                .map(cabinDtoMapper::toResponse)
-                .collect(Collectors.toList())
+                .map(c -> cabinDtoMapper.toResponse(c, getImageUrls(c.getImages())))
+                .toList()
         );
     }
     
@@ -69,7 +71,8 @@ public class CabinController {
             @Valid @RequestBody UpdatePricingRequest request) {
         
         Cabin cabin = updateCabinPricingUseCase.execute(cabinId, request.newPricePerNight());
-        return ResponseEntity.ok(cabinDtoMapper.toResponse(cabin));
+
+        return ResponseEntity.ok(cabinDtoMapper.toResponse(cabin, getImageUrls(cabin.getImages())));
     }
 
     private CreateCabinCommand mapCabinCommand(CreateCabinRequest request) {
@@ -78,10 +81,17 @@ public class CabinController {
             request.city(), request.state(), request.country(),
             request.address(), request.latitude(), request.longitude(),
             request.maxGuests(), request.numberOfBedrooms(), request.numberOfBathrooms(),
-            request.pricePerNight(), request.imageUrls(), request.featureIds(),
+            request.pricePerNight(), request.imageKeys(), request.featureIds(),
             request.policies() != null ? request.policies().stream()
                 .map(p -> new CreateCabinCommand.PolicyInput(p.title(), p.displayOrder(), p.items()))
                 .toList() : null
         );
+    }
+
+    private List<String> getImageUrls(List<CabinImage> images) {
+        return images.stream()
+            .map(CabinImage::getImageKey)
+            .map(generatePreSignedUrlUseCase::execute)
+            .toList();
     }
 }

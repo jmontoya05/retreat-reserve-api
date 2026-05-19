@@ -13,7 +13,7 @@ public class FeatureMapper {
         return new Feature(
             jpaEntity.getId(),
             jpaEntity.getName(),
-            jpaEntity.getIconUrl(),
+            jpaEntity.getIconKey(),
             jpaEntity.getDescription(),
             jpaEntity.getActive(),
             jpaEntity.getCreatedAt(),
@@ -34,7 +34,7 @@ public class FeatureMapper {
         
         jpaEntity.setId(domain.getId());
         jpaEntity.setName(domain.getName());
-        jpaEntity.setIconUrl(domain.getIconUrl());
+        jpaEntity.setIconKey(domain.getIconKey());
         jpaEntity.setDescription(domain.getDescription());
         jpaEntity.setActive(domain.getActive());
         jpaEntity.setCreatedAt(domain.getCreatedAt());

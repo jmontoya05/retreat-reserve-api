@@ -17,7 +17,7 @@ public record CreateCabinCommand(
     Integer numberOfBedrooms,
     Integer numberOfBathrooms,
     BigDecimal pricePerNight,
-    List<String> imageUrls,
+    List<String> imageKeys,
     List<String> featureIds,
     List<PolicyInput> policies
 ) {

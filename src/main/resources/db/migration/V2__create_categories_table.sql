@@ -8,7 +8,7 @@ CREATE TABLE categories (
     -- Category details
     name VARCHAR(50) NOT NULL UNIQUE,
     description VARCHAR(500),
-    image_url VARCHAR(500),
+    image_key VARCHAR(500),
 
     -- Soft delete
     active BOOLEAN NOT NULL DEFAULT TRUE,

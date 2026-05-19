@@ -27,8 +27,8 @@ public class CategoryJpaEntity {
     @Column(length = 500)
     private String description;
     
-    @Column(name = "image_url", length = 500)
-    private String imageUrl;
+    @Column(name = "image_key", length = 500)
+    private String imageKey;
     
     @Column(nullable = false)
     private Boolean active;

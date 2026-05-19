@@ -25,7 +25,7 @@ public class CreateCategoryService implements CreateCategoryUseCase {
         Category category = new Category(
             command.name(),
             command.description(),
-            command.imageUrl()
+            command.imageKey()
         );
         
         return categoryRepository.save(category);

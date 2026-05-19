@@ -47,7 +47,7 @@ public record CreateCabinRequest(
     @NotNull(message = "Price per night is required")
     BigDecimal pricePerNight,
 
-    List<String> imageUrls,
+    List<String> imageKeys,
    
     List<String> featureIds,
     

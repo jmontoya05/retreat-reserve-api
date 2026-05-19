@@ -3,6 +3,7 @@ package com.retreatreserve.infrastructure.adapter.in.rest.cabin;
 import com.retreatreserve.application.command.category.CreateCategoryCommand;
 import com.retreatreserve.application.port.in.category.CreateCategoryUseCase;
 import com.retreatreserve.application.port.in.category.GetAllCategoriesUseCase;
+import com.retreatreserve.application.port.in.storage.GeneratePreSignedUrlUseCase;
 import com.retreatreserve.domain.model.cabin.Category;
 import com.retreatreserve.infrastructure.adapter.in.rest.cabin.dto.request.CreateCategoryRequest;
 import com.retreatreserve.infrastructure.adapter.in.rest.cabin.dto.response.CategoryResponse;
@@ -22,6 +23,7 @@ public class CategoryController {
     
     private final GetAllCategoriesUseCase getAllCategoriesUseCase;
     private final CreateCategoryUseCase createCategoryUseCase;
+    private final GeneratePreSignedUrlUseCase generatePreSignedUrlUseCase;
     
     @GetMapping
     public ResponseEntity<List<CategoryResponse>> getAllCategories() {
@@ -32,7 +34,7 @@ public class CategoryController {
                     c.getId().toString(),
                     c.getName(),
                     c.getDescription(),
-                    c.getImageUrl()
+                    c.getImageKey()
                 ))
                 .toList()
         );
@@ -41,7 +43,7 @@ public class CategoryController {
     @PostMapping
     public ResponseEntity<CategoryResponse> createCategory(@Valid @RequestBody CreateCategoryRequest request) {
         
-        CreateCategoryCommand command = new CreateCategoryCommand(request.name(), request.description(), request.imageUrl());
+        CreateCategoryCommand command = new CreateCategoryCommand(request.name(), request.description(), request.imageKey());
         Category category = createCategoryUseCase.execute(command);
         
         return ResponseEntity.status(HttpStatus.CREATED).body(
@@ -49,7 +51,7 @@ public class CategoryController {
                 category.getId().toString(),
                 category.getName(),
                 category.getDescription(),
-                category.getImageUrl()
+                generatePreSignedUrlUseCase.execute(category.getImageKey())
             )
         );
     }

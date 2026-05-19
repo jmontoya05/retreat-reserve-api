@@ -14,7 +14,7 @@ public class CategoryMapper {
             jpaEntity.getId(),
             jpaEntity.getName(),
             jpaEntity.getDescription(),
-            jpaEntity.getImageUrl(),
+            jpaEntity.getImageKey(),
             jpaEntity.getActive(),
             jpaEntity.getCreatedAt(),
             jpaEntity.getUpdatedAt()
@@ -35,7 +35,7 @@ public class CategoryMapper {
         jpaEntity.setId(domain.getId());
         jpaEntity.setName(domain.getName());
         jpaEntity.setDescription(domain.getDescription());
-        jpaEntity.setImageUrl(domain.getImageUrl());
+        jpaEntity.setImageKey(domain.getImageKey());
         jpaEntity.setActive(domain.getActive());
         jpaEntity.setCreatedAt(domain.getCreatedAt());
         jpaEntity.setUpdatedAt(domain.getUpdatedAt());

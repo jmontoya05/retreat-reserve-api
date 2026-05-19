@@ -2,10 +2,10 @@ package com.retreatreserve.infrastructure.adapter.in.rest.iam;
 
 import com.retreatreserve.application.command.iam.RegisterUserCommand;
 import com.retreatreserve.application.command.iam.VerifyEmailCommand;
+import com.retreatreserve.application.dto.iam.LoginResult;
 import com.retreatreserve.application.port.in.iam.LoginUseCase;
 import com.retreatreserve.application.port.in.iam.RegisterUserUseCase;
 import com.retreatreserve.application.port.in.iam.VerifyEmailUseCase;
-import com.retreatreserve.application.port.in.iam.dto.LoginResult;
 import com.retreatreserve.domain.model.iam.User;
 import com.retreatreserve.infrastructure.adapter.in.rest.iam.dto.request.LoginRequest;
 import com.retreatreserve.infrastructure.adapter.in.rest.iam.dto.request.RegisterRequest;

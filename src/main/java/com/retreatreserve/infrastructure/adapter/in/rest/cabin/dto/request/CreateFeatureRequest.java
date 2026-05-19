@@ -6,8 +6,8 @@ public record CreateFeatureRequest (
     @NotBlank(message = "Name is required")
     String name,
 
-    @NotBlank(message = "Icon URL is required")
-    String iconUrl,
+    @NotBlank(message = "Icon key is required")
+    String iconKey,
 
     String description
 ) 

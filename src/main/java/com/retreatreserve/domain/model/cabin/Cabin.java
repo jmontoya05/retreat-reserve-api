@@ -42,6 +42,7 @@ public class Cabin {
         this.images = new ArrayList<>();
         this.featureIds = new ArrayList<>();
         this.policies = new ArrayList<>();
+        this.status = CabinStatus.AVAILABLE;
     }
 
     /**
@@ -51,7 +52,6 @@ public class Cabin {
                  Capacity capacity, Integer numberOfBedrooms, Integer numberOfBathrooms,
                  BigDecimal pricePerNight) {
         this();
-        this.id = UUID.randomUUID();
         this.name = Objects.requireNonNull(name, "Name cannot be null");
         this.description = Objects.requireNonNull(description, "Description cannot be null");
         this.categoryId = Objects.requireNonNull(categoryId, "Category ID cannot be null");

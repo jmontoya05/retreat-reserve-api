@@ -10,7 +10,7 @@ import lombok.Getter;
 public class Feature {
     private UUID id;
     private String name;
-    private String iconUrl;
+    private String iconKey;
     private String description;
     private Boolean active;
     private LocalDateTime createdAt;
@@ -20,9 +20,8 @@ public class Feature {
     }
 
     public Feature(String name, String iconUrl, String description) {
-        this.id = UUID.randomUUID();
         this.name = Objects.requireNonNull(name, "Name cannot be null");
-        this.iconUrl = Objects.requireNonNull(iconUrl, "Icon URL cannot be null");
+        this.iconKey = Objects.requireNonNull(iconUrl, "Icon URL cannot be null");
         this.description = description;
         this.active = true;
         this.createdAt = LocalDateTime.now();
@@ -32,7 +31,7 @@ public class Feature {
                    LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.name = name;
-        this.iconUrl = iconUrl;
+        this.iconKey = iconUrl;
         this.description = description;
         this.active = active;
         this.createdAt = createdAt;
@@ -41,7 +40,7 @@ public class Feature {
 
     public void updateDetails(String name, String iconUrl, String description) {
         this.name = Objects.requireNonNull(name, "Name cannot be null");
-        this.iconUrl = Objects.requireNonNull(iconUrl, "Icon URL cannot be null");
+        this.iconKey = Objects.requireNonNull(iconUrl, "Icon URL cannot be null");
         this.description = description;
         this.updatedAt = LocalDateTime.now();
     }

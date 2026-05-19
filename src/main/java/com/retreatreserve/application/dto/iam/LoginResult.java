@@ -1,4 +1,4 @@
-package com.retreatreserve.application.port.in.iam.dto;
+package com.retreatreserve.application.dto.iam;
 
 import com.retreatreserve.domain.model.iam.User;
 

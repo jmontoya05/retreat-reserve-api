@@ -17,7 +17,6 @@ public class PolicyItem {
     }
 
     public PolicyItem(String description, Integer displayOrder) {
-        this.id = UUID.randomUUID();
         this.description = Objects.requireNonNull(description, "Description cannot be null");
         this.displayOrder = displayOrder != null ? displayOrder : 0;
         this.createdAt = LocalDateTime.now();

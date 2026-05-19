@@ -8,6 +8,6 @@ public record CreateCategoryRequest(
 
     String description,
     
-    String imageUrl
+    String imageKey
 ) 
 {}

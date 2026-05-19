@@ -24,7 +24,7 @@ public class CreateFeatureService implements CreateFeatureUseCase {
         
         Feature feature = new Feature(
             command.name(),
-            command.iconUrl(),
+            command.iconKey(),
             command.description()
         );
         

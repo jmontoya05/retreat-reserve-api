@@ -14,13 +14,16 @@ spring:
     enabled: false
 
   mail:
-    host: localhost
-    port: 3025
+    host: ${MAIL_HOST}
+    port: ${MAIL_PORT}
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
 
 storage:
   type: local
   local:
-    base-path: ./target/test-storage
+    base-path: ./storage/images
+    base-url: http://localhost:8080/api/v1
 
 jwt:
   secret: test-secret-key-for-testing-purposes-only

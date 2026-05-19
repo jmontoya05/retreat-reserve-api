@@ -13,10 +13,10 @@ public interface ImageStorageService {
     /**
      * Deletes an image by URL.
      */
-    void deleteImage(String imageUrl);
+    void deleteImage(String imageKey);
     
     /**
      * Generates a pre-signed URL for temporary access (S3).
      */
-    String generatePreSignedUrl(String imageUrl, int expirationMinutes);
+    String generatePreSignedUrl(String imageKey, int expirationMinutes);
 }

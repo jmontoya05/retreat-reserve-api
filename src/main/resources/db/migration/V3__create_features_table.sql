@@ -7,7 +7,7 @@ CREATE TABLE features (
 
     -- Feature details
     name VARCHAR(100) NOT NULL UNIQUE,
-    icon_url VARCHAR(500) NOT NULL,
+    icon_key VARCHAR(500) NOT NULL,
     description VARCHAR(500),
 
     -- Soft delete

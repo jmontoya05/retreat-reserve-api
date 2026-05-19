@@ -148,7 +148,7 @@ public class CabinMapper {
         if (jpaEntity == null) return null;
         return new CabinImage(
             jpaEntity.getId(),
-            jpaEntity.getImageUrl(),
+            jpaEntity.getImageKey(),
             jpaEntity.getDisplayOrder(),
             jpaEntity.getIsPrimary(),
             jpaEntity.getUploadedAt()
@@ -160,7 +160,7 @@ public class CabinMapper {
         CabinImageJpaEntity jpa = new CabinImageJpaEntity();
         jpa.setId(domain.getId());
         jpa.setCabin(cabin);
-        jpa.setImageUrl(domain.getImageUrl());
+        jpa.setImageKey(domain.getImageKey());
         jpa.setDisplayOrder(domain.getDisplayOrder());
         jpa.setIsPrimary(domain.getIsPrimary());
         jpa.setUploadedAt(domain.getUploadedAt());

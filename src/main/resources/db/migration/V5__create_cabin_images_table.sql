@@ -9,7 +9,7 @@ CREATE TABLE cabin_images (
     cabin_id BINARY(16) NOT NULL,
 
     -- Image details
-    image_url VARCHAR(500) NOT NULL,
+    image_key VARCHAR(500) NOT NULL,
     display_order INT NOT NULL DEFAULT 0,
     is_primary BOOLEAN NOT NULL DEFAULT FALSE,
 

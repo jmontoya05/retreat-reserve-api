@@ -76,7 +76,7 @@ VALUES
 -- 3. CREATE CATEGORIES
 -- ============================================================================
 
-INSERT INTO categories (id, name, description, image_url, active, created_at)
+INSERT INTO categories (id, name, description, image_key, active, created_at)
 VALUES
     (@cat_standard_id, 'Estándar', 'Cabañas cómodas y asequibles perfectas para escapadas en familia', 'https://images.unsplash.com/photo-1518780664697-55e3ad937233', TRUE, CURRENT_TIMESTAMP),
     (@cat_premium_id, 'Premium', 'Cabañas lujosas con comodidades de alta gama y vistas espectaculares', 'https://images.unsplash.com/photo-1542718610-a1d656d1884c', TRUE, CURRENT_TIMESTAMP),
@@ -88,7 +88,7 @@ VALUES
 -- 4. CREATE COMMON FEATURES
 -- ============================================================================
 
-INSERT INTO features (id, name, icon_url, description, active, created_at)
+INSERT INTO features (id, name, icon_key, description, active, created_at)
 VALUES
     (@feat_wifi_id, 'WiFi', 'fa-wifi', 'Internet inalámbrico de alta velocidad', TRUE, CURRENT_TIMESTAMP),
     (@feat_pool_id, 'Piscina', 'fa-swimming-pool', 'Piscina privada o compartida', TRUE, CURRENT_TIMESTAMP),
@@ -225,7 +225,7 @@ VALUES (
 -- ============================================================================
 
 -- Images for Cabaña del Bosque Encantado (Cabin 1)
-INSERT INTO cabin_images (id, cabin_id, image_url, display_order, is_primary, uploaded_at)
+INSERT INTO cabin_images (id, cabin_id, image_key, display_order, is_primary, uploaded_at)
 VALUES
     (UUID_TO_BIN(UUID()), @cabin1_id, 'https://images.unsplash.com/photo-1542718610-a1d656d1884c', 0, TRUE, CURRENT_TIMESTAMP),
     (UUID_TO_BIN(UUID()), @cabin1_id, 'https://images.unsplash.com/photo-1518780664697-55e3ad937233', 1, FALSE, CURRENT_TIMESTAMP),
@@ -234,7 +234,7 @@ VALUES
     (UUID_TO_BIN(UUID()), @cabin1_id, 'https://images.unsplash.com/photo-1499696010180-025ef6e1a8f9', 4, FALSE, CURRENT_TIMESTAMP);
 
 -- Images for Refugio Lakeside Premium (Cabin 2)
-INSERT INTO cabin_images (id, cabin_id, image_url, display_order, is_primary, uploaded_at)
+INSERT INTO cabin_images (id, cabin_id, image_key, display_order, is_primary, uploaded_at)
 VALUES
     (UUID_TO_BIN(UUID()), @cabin2_id, 'https://images.unsplash.com/photo-1571896349842-33c89424de2d', 0, TRUE, CURRENT_TIMESTAMP),
     (UUID_TO_BIN(UUID()), @cabin2_id, 'https://images.unsplash.com/photo-1510798831971-661eb04b3739', 1, FALSE, CURRENT_TIMESTAMP),
@@ -243,7 +243,7 @@ VALUES
     (UUID_TO_BIN(UUID()), @cabin2_id, 'https://images.unsplash.com/photo-1536890992765-f42a1ee1e2a8', 4, FALSE, CURRENT_TIMESTAMP);
 
 -- Images for Montaña Verde Eco-Lodge (Cabin 3)
-INSERT INTO cabin_images (id, cabin_id, image_url, display_order, is_primary, uploaded_at)
+INSERT INTO cabin_images (id, cabin_id, image_key, display_order, is_primary, uploaded_at)
 VALUES
     (UUID_TO_BIN(UUID()), @cabin3_id, 'https://images.unsplash.com/photo-1501594907352-04cda38ebc29', 0, TRUE, CURRENT_TIMESTAMP),
     (UUID_TO_BIN(UUID()), @cabin3_id, 'https://images.unsplash.com/photo-1464146072230-91cabc968266', 1, FALSE, CURRENT_TIMESTAMP),
@@ -252,7 +252,7 @@ VALUES
     (UUID_TO_BIN(UUID()), @cabin3_id, 'https://images.unsplash.com/photo-1472214103451-9374bd1c798e', 4, FALSE, CURRENT_TIMESTAMP);
 
 -- Images for Nido de Amor (Cabin 4)
-INSERT INTO cabin_images (id, cabin_id, image_url, display_order, is_primary, uploaded_at)
+INSERT INTO cabin_images (id, cabin_id, image_key, display_order, is_primary, uploaded_at)
 VALUES
     (UUID_TO_BIN(UUID()), @cabin4_id, 'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4', 0, TRUE, CURRENT_TIMESTAMP),
     (UUID_TO_BIN(UUID()), @cabin4_id, 'https://images.unsplash.com/photo-1566073771259-6a8506099945', 1, FALSE, CURRENT_TIMESTAMP),
@@ -261,7 +261,7 @@ VALUES
     (UUID_TO_BIN(UUID()), @cabin4_id, 'https://images.unsplash.com/photo-1523755231516-e43fd2e8dca5', 4, FALSE, CURRENT_TIMESTAMP);
 
 -- Images for Valle del Sol Familiar (Cabin 5)
-INSERT INTO cabin_images (id, cabin_id, image_url, display_order, is_primary, uploaded_at)
+INSERT INTO cabin_images (id, cabin_id, image_key, display_order, is_primary, uploaded_at)
 VALUES
     (UUID_TO_BIN(UUID()), @cabin5_id, 'https://images.unsplash.com/photo-1518780664697-55e3ad937233', 0, TRUE, CURRENT_TIMESTAMP),
     (UUID_TO_BIN(UUID()), @cabin5_id, 'https://images.unsplash.com/photo-1549638441-b787d2e11f14', 1, FALSE, CURRENT_TIMESTAMP),

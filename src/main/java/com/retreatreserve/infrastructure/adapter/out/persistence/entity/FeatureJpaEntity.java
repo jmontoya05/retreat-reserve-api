@@ -24,8 +24,8 @@ public class FeatureJpaEntity {
     @Column(nullable = false, unique = true, length = 100)
     private String name;
     
-    @Column(name = "icon_url", nullable = false, length = 500)
-    private String iconUrl;
+    @Column(name = "icon_key", nullable = false, length = 500)
+    private String iconKey;
     
     @Column(length = 500)
     private String description;

@@ -14,7 +14,7 @@ public class Category {
     private UUID id;
     private String name;
     private String description;
-    private String imageUrl;
+    private String imageKey;
     private Boolean active;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
@@ -23,10 +23,9 @@ public class Category {
     }
 
     public Category(String name, String description, String imageUrl) {
-        this.id = UUID.randomUUID();
         this.name = Objects.requireNonNull(name, "Name cannot be null");
         this.description = description;
-        this.imageUrl = imageUrl;
+        this.imageKey = imageUrl;
         this.active = true;
         this.createdAt = LocalDateTime.now();
     }
@@ -36,7 +35,7 @@ public class Category {
         this.id = id;
         this.name = name;
         this.description = description;
-        this.imageUrl = imageUrl;
+        this.imageKey = imageUrl;
         this.active = active;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
@@ -45,7 +44,7 @@ public class Category {
     public void updateDetails(String name, String description, String imageUrl) {
         this.name = Objects.requireNonNull(name, "Name cannot be null");
         this.description = description;
-        this.imageUrl = imageUrl;
+        this.imageKey = imageUrl;
         this.updatedAt = LocalDateTime.now();
     }
 

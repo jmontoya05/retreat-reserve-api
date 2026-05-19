@@ -24,7 +24,6 @@ public class Policy {
 
     public Policy(String title, Integer displayOrder) {
         this();
-        this.id = UUID.randomUUID();
         this.title = Objects.requireNonNull(title, "Title cannot be null");
         this.displayOrder = displayOrder != null ? displayOrder : 0;
         this.createdAt = LocalDateTime.now();

@@ -22,7 +22,6 @@ public class Review {
     }
 
     public Review(UUID userId, UUID cabinId, UUID reservationId, Rating rating, String comment) {
-        this.id = UUID.randomUUID();
         this.userId = Objects.requireNonNull(userId, "User ID cannot be null");
         this.cabinId = Objects.requireNonNull(cabinId, "Cabin ID cannot be null");
         this.reservationId = Objects.requireNonNull(reservationId, "Reservation ID cannot be null");
