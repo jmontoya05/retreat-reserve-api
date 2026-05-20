@@ -6,6 +6,9 @@ import com.retreatreserve.application.port.in.review.GetCabinReviewsUseCase;
 import com.retreatreserve.domain.model.reservation.Review;
 import com.retreatreserve.infrastructure.adapter.in.rest.review.dto.request.CreateReviewRequest;
 import com.retreatreserve.infrastructure.adapter.in.rest.review.dto.response.ReviewResponse;
+
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 import com.retreatreserve.infrastructure.adapter.in.rest.mapper.ReviewDtoMapper;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -14,11 +17,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/reviews")
 @RequiredArgsConstructor
+@Tag(name = "Review Management", description = "Endpoints for creating and retrieving cabin reviews")
 public class ReviewController {
     
     private final CreateReviewUseCase createReviewUseCase;
@@ -45,7 +48,7 @@ public class ReviewController {
         return ResponseEntity.ok(
             reviews.stream()
                 .map(reviewDtoMapper::toResponse)
-                .collect(Collectors.toList())
+                .toList()
         );
     }
 }

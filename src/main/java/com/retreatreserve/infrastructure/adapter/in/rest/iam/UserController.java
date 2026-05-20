@@ -11,6 +11,7 @@ import com.retreatreserve.infrastructure.adapter.in.rest.iam.dto.request.UpdateP
 import com.retreatreserve.infrastructure.adapter.in.rest.iam.dto.response.UserResponse;
 import com.retreatreserve.infrastructure.adapter.in.rest.mapper.UserDtoMapper;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/users")
 @RequiredArgsConstructor
+@Tag(name = "User Management", description = "Endpoints for retrieving and updating user profiles")
 public class UserController {
     
     private final GetUserByIdUseCase getUserByIdUseCase;

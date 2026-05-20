@@ -13,6 +13,8 @@ import com.retreatreserve.infrastructure.adapter.in.rest.iam.dto.request.VerifyE
 import com.retreatreserve.infrastructure.adapter.in.rest.iam.dto.response.LoginResponse;
 import com.retreatreserve.infrastructure.adapter.in.rest.iam.dto.response.UserResponse;
 import com.retreatreserve.infrastructure.adapter.in.rest.mapper.UserDtoMapper;
+
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -22,6 +24,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
+@Tag(name = "Authentication", description = "Endpoints for user registration, login, and email verification")
 public class AuthController {
     
     private final RegisterUserUseCase registerUserUseCase;

@@ -7,6 +7,7 @@ import com.retreatreserve.domain.model.cabin.Feature;
 import com.retreatreserve.infrastructure.adapter.in.rest.cabin.dto.request.CreateFeatureRequest;
 import com.retreatreserve.infrastructure.adapter.in.rest.cabin.dto.response.FeatureResponse;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,6 +19,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/features")
 @RequiredArgsConstructor
+@Tag(name = "Feature Management", description = "Endpoints for creating and retrieving cabin features")
 public class FeatureController {
     
     private final GetAllFeaturesUseCase getAllFeaturesUseCase;

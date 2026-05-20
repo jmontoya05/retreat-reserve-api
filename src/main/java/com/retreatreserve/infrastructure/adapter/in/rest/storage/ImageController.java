@@ -6,8 +6,8 @@ import com.retreatreserve.application.port.in.storage.UploadImageUseCase;
 import com.retreatreserve.application.port.in.storage.UploadMultipleImagesUseCase;
 import com.retreatreserve.infrastructure.adapter.in.rest.storage.dto.response.ImageUploadResponse;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +20,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/images")
 @RequiredArgsConstructor
-@Slf4j
+@Tag(name = "Image Management", description = "Endpoints for uploading and deleting images in storage")
 public class ImageController {
     
     private final UploadImageUseCase uploadImageUseCase;

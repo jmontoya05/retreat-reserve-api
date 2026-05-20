@@ -10,6 +10,9 @@ import com.retreatreserve.application.port.in.reservation.GetUserReservationsUse
 import com.retreatreserve.domain.model.reservation.Reservation;
 import com.retreatreserve.infrastructure.adapter.in.rest.reservation.dto.request.CreateReservationRequest;
 import com.retreatreserve.infrastructure.adapter.in.rest.reservation.dto.response.ReservationResponse;
+
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 import com.retreatreserve.infrastructure.adapter.in.rest.mapper.ReservationDtoMapper;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -20,11 +23,11 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/reservations")
 @RequiredArgsConstructor
+@Tag(name = "Reservation Management", description = "Endpoints for creating, canceling, completing, and retrieving reservations, as well as checking availability")
 public class ReservationController {
     
     private final CreateReservationUseCase createReservationUseCase;
@@ -68,7 +71,7 @@ public class ReservationController {
         return ResponseEntity.ok(
             reservations.stream()
                 .map(reservationDtoMapper::toResponse)
-                .collect(Collectors.toList())
+                .toList()
         );
     }
     

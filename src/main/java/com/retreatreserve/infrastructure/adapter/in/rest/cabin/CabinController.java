@@ -13,6 +13,8 @@ import com.retreatreserve.infrastructure.adapter.in.rest.cabin.dto.request.Creat
 import com.retreatreserve.infrastructure.adapter.in.rest.cabin.dto.request.UpdatePricingRequest;
 import com.retreatreserve.infrastructure.adapter.in.rest.cabin.dto.response.CabinResponse;
 import com.retreatreserve.infrastructure.adapter.in.rest.mapper.CabinDtoMapper;
+
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -25,6 +27,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/cabins")
 @RequiredArgsConstructor
+@Tag(name = "Cabin Management", description = "Endpoints for creating, retrieving, and searching cabins")
 public class CabinController {
     
     private final CreateCabinUseCase createCabinUseCase;

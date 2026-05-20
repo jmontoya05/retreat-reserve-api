@@ -7,6 +7,7 @@ import com.retreatreserve.application.port.in.favorite.RemoveFavoriteUseCase;
 import com.retreatreserve.domain.model.reservation.Favorite;
 import com.retreatreserve.infrastructure.adapter.in.rest.favorite.dto.request.AddFavoriteRequest;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,6 +19,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/favorites")
 @RequiredArgsConstructor
+@Tag(name = "Favorite Management", description = "Endpoints for adding, removing, and retrieving user favorites")
 public class FavoriteController {
     
     private final AddFavoriteUseCase addFavoriteUseCase;

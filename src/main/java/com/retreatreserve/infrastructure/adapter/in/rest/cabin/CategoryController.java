@@ -8,6 +8,7 @@ import com.retreatreserve.domain.model.cabin.Category;
 import com.retreatreserve.infrastructure.adapter.in.rest.cabin.dto.request.CreateCategoryRequest;
 import com.retreatreserve.infrastructure.adapter.in.rest.cabin.dto.response.CategoryResponse;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -19,6 +20,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/categories")
 @RequiredArgsConstructor
+@Tag(name = "Category Management", description = "Endpoints for creating and retrieving cabin categories")
 public class CategoryController {
     
     private final GetAllCategoriesUseCase getAllCategoriesUseCase;
