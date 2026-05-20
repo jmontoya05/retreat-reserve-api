@@ -15,6 +15,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfigurationSource;
 
 @Configuration
 @EnableWebSecurity
@@ -25,6 +26,7 @@ public class SecurityConfig {
     private final CustomUserDetailsService userDetailsService;
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
+    private final CorsConfigurationSource corsConfigurationSource;
 
     private static final String ADMIN = "ADMIN";
 
@@ -46,6 +48,8 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) {
         http
+            // Enable CORS with custom configuration
+            .cors(cors -> cors.configurationSource(corsConfigurationSource))
             .csrf(csrf -> csrf.disable())
             .exceptionHandling(exception -> 
                 exception.authenticationEntryPoint(jwtAuthenticationEntryPoint)
@@ -66,11 +70,13 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.GET, "/categories/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/features/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/reviews/**").permitAll()
+                .requestMatchers("/images/**").permitAll()
 
                 // Admin-only endpoints
                 .requestMatchers(HttpMethod.POST, "/cabins/**").hasRole(ADMIN)
                 .requestMatchers(HttpMethod.POST, "/categories/**").hasRole(ADMIN)
                 .requestMatchers(HttpMethod.POST, "/features/**").hasRole(ADMIN)
+                .requestMatchers(HttpMethod.DELETE, "/api/v1/images/**").hasRole(ADMIN)
 
                 // Authenticated endpoints
                 .anyRequest().authenticated()
