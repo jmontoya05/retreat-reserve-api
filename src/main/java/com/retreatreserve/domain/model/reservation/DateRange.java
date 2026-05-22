@@ -13,6 +13,7 @@ public class DateRange {
     private final LocalDate checkInDate;
     private final LocalDate checkOutDate;
 
+    // Used for new reservations — enforces future dates
     public DateRange(LocalDate checkInDate, LocalDate checkOutDate) {
         if (checkInDate == null || checkOutDate == null) {
             throw new InvalidDateRangeException("Dates cannot be null");
@@ -30,6 +31,21 @@ public class DateRange {
 
         this.checkInDate = checkInDate;
         this.checkOutDate = checkOutDate;
+    }
+
+    // Used when rehydrating existing reservations from persistence (no future-date requirement)
+    private DateRange(LocalDate checkInDate, LocalDate checkOutDate, boolean skipFutureDateValidation) {
+        if (checkInDate == null || checkOutDate == null)
+            throw new InvalidDateRangeException("Dates cannot be null");
+        if (checkOutDate.isBefore(checkInDate) || checkOutDate.isEqual(checkInDate))
+            throw new InvalidDateRangeException("Check-out date must be after check-in date");
+
+        this.checkInDate = checkInDate;
+        this.checkOutDate = checkOutDate;
+    }
+
+    public static DateRange reconstitute(LocalDate checkInDate, LocalDate checkOutDate) {
+        return new DateRange(checkInDate, checkOutDate, true);
     }
 
     public long getNumberOfNights() {

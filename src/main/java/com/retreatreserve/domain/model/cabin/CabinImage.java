@@ -22,7 +22,7 @@ public class CabinImage {
     public CabinImage(String imageUrl, Integer displayOrder, Boolean isPrimary) {
         this.imageKey = Objects.requireNonNull(imageUrl, "Image url cannot be null");
         this.displayOrder = displayOrder != null ? displayOrder : 0;
-        this.isPrimary = isPrimary != null ? isPrimary : false;
+        this.isPrimary = isPrimary != null && isPrimary;
         this.uploadedAt = LocalDateTime.now();
     }
 

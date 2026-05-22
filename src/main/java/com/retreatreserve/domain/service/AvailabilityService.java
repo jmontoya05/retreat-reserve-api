@@ -1,7 +1,7 @@
 package com.retreatreserve.domain.service;
 
 import com.retreatreserve.application.port.out.persistence.ReservationRepository;
-import com.retreatreserve.domain.exception.reservation.CabinNotAvailableException;
+import com.retreatreserve.domain.exception.cabin.CabinNotAvailableException;
 import com.retreatreserve.domain.model.reservation.DateRange;
 import com.retreatreserve.domain.model.reservation.Reservation;
 import lombok.RequiredArgsConstructor;

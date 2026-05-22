@@ -1,0 +1,34 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    database-platform: org.hibernate.dialect.H2Dialect
+
+  flyway:
+    enabled: false
+
+  mail:
+    host: localhost
+    port: 25
+    username: test
+    password: test
+  
+email:
+  from: noreply@test.com
+  verification-base-url: localhost
+
+storage:
+  type: local
+  local:
+    base-path: ./storage/images
+    base-url: http://localhost:8080/api/v1
+
+jwt:
+  secret: test-secret-key-for-testing-purposes-only
+  expiration: 3600000
