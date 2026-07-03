@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -46,5 +47,16 @@ class GetCabinReviewsServiceTest {
 
         assertEquals(1, result.size());
         assertEquals(review, result.get(0));
+    }
+
+    @Test
+    void shouldThrowExceptionWhenCabinIdIsNotAValidUuid() {
+        IllegalArgumentException exception = assertThrows(
+            IllegalArgumentException.class,
+            () -> getCabinReviewsService.execute("not-a-valid-uuid")
+        );
+
+        assertEquals("Invalid UUID string: not-a-valid-uuid", exception.getMessage());
+        verifyNoInteractions(reviewRepository);
     }
 }

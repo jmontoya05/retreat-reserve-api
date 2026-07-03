@@ -19,8 +19,7 @@ public class GetCabinReviewsService implements GetCabinReviewsUseCase {
     @Override
     @Transactional(readOnly = true)
     public List<Review> execute(String cabinId) {
-        return reviewRepository.findActiveByCabinIdOrderByCreatedAtDesc(
-            UUID.fromString(cabinId)
-        );
+        UUID parsedCabinId = UUID.fromString(cabinId);
+        return reviewRepository.findActiveByCabinIdOrderByCreatedAtDesc(parsedCabinId);
     }
 }
