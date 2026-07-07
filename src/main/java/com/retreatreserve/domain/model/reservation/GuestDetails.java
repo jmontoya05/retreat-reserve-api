@@ -1,5 +1,7 @@
 package com.retreatreserve.domain.model.reservation;
 
+import com.retreatreserve.domain.exception.reservation.InvalidGuestDetailsException;
+
 import java.util.Objects;
 
 import lombok.Getter;
@@ -12,7 +14,7 @@ public class GuestDetails {
 
     public GuestDetails(Integer numberOfGuests, String guestName, String guestPhone) {
         if (numberOfGuests == null || numberOfGuests < 1) {
-            throw new IllegalArgumentException("Number of guests must be at least 1");
+            throw new InvalidGuestDetailsException("Number of guests must be at least 1");
         }
         this.numberOfGuests = numberOfGuests;
         this.guestName = guestName;
@@ -21,8 +23,10 @@ public class GuestDetails {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
         GuestDetails that = (GuestDetails) o;
         return Objects.equals(numberOfGuests, that.numberOfGuests);
     }

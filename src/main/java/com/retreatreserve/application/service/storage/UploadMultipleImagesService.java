@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.retreatreserve.application.dto.storage.UploadedImage;
 import com.retreatreserve.application.exception.storage.ImageUploadingException;
+import com.retreatreserve.application.exception.storage.InvalidImageException;
 import com.retreatreserve.application.port.in.storage.UploadMultipleImagesUseCase;
 import com.retreatreserve.application.port.out.storage.ImageStorageService;
 
@@ -17,35 +18,38 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @AllArgsConstructor
 @Slf4j
-public class UploadMultipleImagesService implements UploadMultipleImagesUseCase{
-    
+public class UploadMultipleImagesService implements UploadMultipleImagesUseCase {
+
     private final ImageStorageService imageStorageService;
     private final ImageValidator imageValidator;
 
     @Override
     public List<UploadedImage> execute(List<MultipartFile> files) {
-        
+
         List<UploadedImage> uploadedImages = new ArrayList<>();
         for (MultipartFile file : files) {
             try {
                 imageValidator.validateImage(file);
-                
+
                 byte[] imageData = file.getBytes();
                 String imageKey = imageStorageService.uploadImage(
-                    imageData,
-                    file.getOriginalFilename(),
-                    file.getContentType()
-                );
-                
+                        imageData,
+                        file.getOriginalFilename(),
+                        file.getContentType());
+
                 uploadedImages.add(new UploadedImage(
-                    imageKey,
-                    file.getOriginalFilename(),
-                    file.getSize()
-                ));
-                
+                        imageKey,
+                        file.getOriginalFilename(),
+                        file.getSize()));
+
+            } catch (IllegalArgumentException e) {
+                log.error("Invalid image file: {}", file.getOriginalFilename(), e);
+                throw new InvalidImageException(
+                        "Invalid image file: " + e.getMessage(),
+                        e);
             } catch (Exception e) {
                 log.error("Failed to upload image: {}", file.getOriginalFilename(), e);
-                throw new ImageUploadingException("Failed to read image file", e);
+                throw new ImageUploadingException("Failed to upload image file", e);
             }
         }
 

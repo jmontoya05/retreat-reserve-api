@@ -17,6 +17,8 @@ import com.retreatreserve.domain.model.reservation.GuestDetails;
 import com.retreatreserve.domain.model.reservation.Reservation;
 import com.retreatreserve.domain.service.AvailabilityService;
 import com.retreatreserve.domain.service.PricingService;
+import com.retreatreserve.infrastructure.exception.notification.EmailSendingException;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -33,78 +35,77 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @Slf4j
 public class CreateReservationService implements CreateReservationUseCase {
-    
+
     private final ReservationRepository reservationRepository;
     private final CabinRepository cabinRepository;
     private final UserRepository userRepository;
     private final AvailabilityService availabilityService;
     private final PricingService pricingService;
     private final EmailService emailService;
-    
+
     @Override
     @Transactional
     public Reservation execute(CreateReservationCommand command) {
         log.info("Creating reservation for cabin: {} by user: {}", command.cabinId(), command.userId());
-        
+
         UUID userId = UUID.fromString(command.userId());
         User user = userRepository.findById(userId)
-            .orElseThrow(() -> new UserNotFoundException("User not found: " + command.userId()));
-        
+                .orElseThrow(() -> new UserNotFoundException("User not found: " + command.userId()));
+
         UUID cabinId = UUID.fromString(command.cabinId());
         Cabin cabin = cabinRepository.findById(cabinId)
-            .orElseThrow(() -> new CabinNotFoundException("Cabin not found: " + command.cabinId()));
-        
+                .orElseThrow(() -> new CabinNotFoundException("Cabin not found: " + command.cabinId()));
+
         if (!cabin.isAvailableForBooking()) {
             throw new CabinNotAvailableException("Cabin is not available for booking. Status: " + cabin.getStatus());
         }
-        
+
         DateRange dateRange = new DateRange(command.checkInDate(), command.checkOutDate());
-        
+
         availabilityService.ensureCabinAvailable(cabinId, dateRange);
-        
+
         if (!cabin.getCapacity().canAccommodate(command.numberOfGuests())) {
             throw new ExceedsCapacityException(
-                "Number of guests (" + command.numberOfGuests() + 
-                ") exceeds cabin capacity (" + cabin.getCapacity().getMaxGuests() + ")"
-            );
+                    "Number of guests (" + command.numberOfGuests() +
+                            ") exceeds cabin capacity (" + cabin.getCapacity().getMaxGuests() + ")");
         }
-        
+
         BigDecimal totalPrice = pricingService.calculateTotalPrice(cabin, dateRange);
-        
+
         GuestDetails guestDetails = new GuestDetails(
-            command.numberOfGuests(),
-            command.guestName(),
-            command.guestPhone()
-        );
-        
+                command.numberOfGuests(),
+                command.guestName(),
+                command.guestPhone());
+
         Reservation reservation = new Reservation(
-            userId,
-            cabinId,
-            dateRange,
-            guestDetails,
-            totalPrice
-        );
-        
+                userId,
+                cabinId,
+                dateRange,
+                guestDetails,
+                totalPrice);
+
         if (command.specialRequests() != null && !command.specialRequests().isBlank()) {
             reservation.updateSpecialRequests(command.specialRequests());
         }
-        
+
         Reservation savedReservation = reservationRepository.save(reservation);
-        
+
         try {
             emailService.sendReservationConfirmation(
-                user.getEmail().getValue(),
-                user.getFullName().getFullName(),
-                cabin.getName(),
-                dateRange.getCheckInDate().toString(),
-                dateRange.getCheckOutDate().toString(),
-                totalPrice.toString()
-            );
+                    user.getEmail().getValue(),
+                    user.getFullName().getFullName(),
+                    cabin.getName(),
+                    dateRange.getCheckInDate().toString(),
+                    dateRange.getCheckOutDate().toString(),
+                    totalPrice.toString());
             log.info("Sending reservation confirmation email to: {}", user.getEmail().getValue());
         } catch (Exception e) {
             log.error("Failed to send confirmation email", e);
+            throw new EmailSendingException(
+                    "Failed to send reservation confirmation email",
+                    e);
         }
-        
+
         log.info("Reservation created successfully: {}", savedReservation.getId());
         return savedReservation;
     }

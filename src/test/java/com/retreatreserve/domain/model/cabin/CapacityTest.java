@@ -1,5 +1,6 @@
 package com.retreatreserve.domain.model.cabin;
 
+import com.retreatreserve.domain.exception.cabin.InvalidCapacityException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -12,6 +13,6 @@ class CapacityTest {
         assertTrue(c.canAccommodate(3));
         assertFalse(c.canAccommodate(5));
 
-        assertThrows(IllegalArgumentException.class, () -> new Capacity(0));
+        assertThrows(InvalidCapacityException.class, () -> new Capacity(0));
     }
 }

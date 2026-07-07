@@ -1,5 +1,7 @@
 package com.retreatreserve.domain.model.cabin;
 
+import com.retreatreserve.domain.exception.cabin.InvalidCapacityException;
+
 import java.util.Objects;
 
 import lombok.Getter;
@@ -10,7 +12,7 @@ public class Capacity {
 
     public Capacity(Integer maxGuests) {
         if (maxGuests == null || maxGuests < 1) {
-            throw new IllegalArgumentException("Max guests must be at least 1");
+            throw new InvalidCapacityException("Max guests must be at least 1");
         }
         this.maxGuests = maxGuests;
     }
@@ -21,8 +23,10 @@ public class Capacity {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
         Capacity capacity = (Capacity) o;
         return Objects.equals(maxGuests, capacity.maxGuests);
     }

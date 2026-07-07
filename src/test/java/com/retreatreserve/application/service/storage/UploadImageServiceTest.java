@@ -1,7 +1,7 @@
 package com.retreatreserve.application.service.storage;
 
 import com.retreatreserve.application.dto.storage.UploadedImage;
-import com.retreatreserve.application.exception.storage.InvalidImageExceptionon;
+import com.retreatreserve.application.exception.storage.InvalidImageException;
 import com.retreatreserve.application.port.out.storage.ImageStorageService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -52,6 +52,6 @@ class UploadImageServiceTest {
         doThrow(new IllegalArgumentException("Invalid image"))
             .when(imageValidator).validateImage(file);
 
-        assertThrows(InvalidImageExceptionon.class, () -> uploadImageService.execute(file));
+        assertThrows(InvalidImageException.class, () -> uploadImageService.execute(file));
     }
 }

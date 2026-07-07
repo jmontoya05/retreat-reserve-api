@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.retreatreserve.application.dto.storage.UploadedImage;
-import com.retreatreserve.application.exception.storage.InvalidImageExceptionon;
+import com.retreatreserve.application.exception.storage.InvalidImageException;
 import com.retreatreserve.application.port.in.storage.UploadImageUseCase;
 import com.retreatreserve.application.port.out.storage.ImageStorageService;
 import com.retreatreserve.infrastructure.exception.storage.ImageUploadingException;
@@ -44,7 +44,7 @@ public class UploadImageService implements UploadImageUseCase {
             throw new ImageUploadingException("Failed to read image file", e);
         } catch (IllegalArgumentException e) {
             log.error("Invalid image file", e);
-            throw new InvalidImageExceptionon("Invalid image file: " + e.getMessage(), e);
+            throw new InvalidImageException("Invalid image file: " + e.getMessage(), e);
         }
     }
 }
