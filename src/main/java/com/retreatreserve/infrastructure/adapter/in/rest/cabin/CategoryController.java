@@ -22,39 +22,36 @@ import java.util.List;
 @RequiredArgsConstructor
 @Tag(name = "Category Management", description = "Endpoints for creating and retrieving cabin categories")
 public class CategoryController {
-    
+
     private final GetAllCategoriesUseCase getAllCategoriesUseCase;
     private final CreateCategoryUseCase createCategoryUseCase;
     private final GeneratePreSignedUrlUseCase generatePreSignedUrlUseCase;
-    
+
     @GetMapping
     public ResponseEntity<List<CategoryResponse>> getAllCategories() {
         List<Category> categories = getAllCategoriesUseCase.execute();
         return ResponseEntity.ok(
-            categories.stream()
-                .map(c -> new CategoryResponse(
-                    c.getId().toString(),
-                    c.getName(),
-                    c.getDescription(),
-                    c.getImageKey()
-                ))
-                .toList()
-        );
+                categories.stream()
+                        .map(c -> new CategoryResponse(
+                                c.getId().toString(),
+                                c.getName(),
+                                c.getDescription(),
+                                generatePreSignedUrlUseCase.execute(c.getImageKey())))
+                        .toList());
     }
-    
+
     @PostMapping
     public ResponseEntity<CategoryResponse> createCategory(@Valid @RequestBody CreateCategoryRequest request) {
-        
-        CreateCategoryCommand command = new CreateCategoryCommand(request.name(), request.description(), request.imageKey());
+
+        CreateCategoryCommand command = new CreateCategoryCommand(request.name(), request.description(),
+                request.imageKey());
         Category category = createCategoryUseCase.execute(command);
-        
+
         return ResponseEntity.status(HttpStatus.CREATED).body(
-            new CategoryResponse(
-                category.getId().toString(),
-                category.getName(),
-                category.getDescription(),
-                generatePreSignedUrlUseCase.execute(category.getImageKey())
-            )
-        );
+                new CategoryResponse(
+                        category.getId().toString(),
+                        category.getName(),
+                        category.getDescription(),
+                        generatePreSignedUrlUseCase.execute(category.getImageKey())));
     }
 }
