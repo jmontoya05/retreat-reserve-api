@@ -17,7 +17,10 @@ public record CabinResponse(
     Integer totalReviews,
     String status,
     List<String> imageUrls,
-    List<String> featureIds
+    List<String> featureIds,
+    List<PolicyResponse> policies
 ) {
     public record LocationResponse(String city, String state, String country) {}
+    public record PolicyResponse(String id, String title, Integer displayOrder, List<PolicyItemResponse> items) {}
+    public record PolicyItemResponse(String id, String description, Integer displayOrder) {}
 }

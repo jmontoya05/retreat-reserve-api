@@ -14,6 +14,8 @@ import com.retreatreserve.domain.model.cabin.CabinImage;
 import com.retreatreserve.domain.model.cabin.CabinStatus;
 import com.retreatreserve.domain.model.cabin.Capacity;
 import com.retreatreserve.domain.model.cabin.Location;
+import com.retreatreserve.domain.model.cabin.Policy;
+import com.retreatreserve.domain.model.cabin.PolicyItem;
 import com.retreatreserve.infrastructure.adapter.in.rest.cabin.dto.request.CreateCabinRequest;
 import com.retreatreserve.infrastructure.adapter.in.rest.cabin.dto.request.UpdatePricingRequest;
 import com.retreatreserve.infrastructure.adapter.in.rest.mapper.CabinDtoMapper;
@@ -97,6 +99,8 @@ class CabinControllerTest {
         UUID cabinId = UUID.randomUUID();
         UUID categoryId = UUID.randomUUID();
         UUID featureId = UUID.randomUUID();
+        UUID policyId = UUID.randomUUID();
+        UUID policyItemId = UUID.randomUUID();
 
         CreateCabinRequest request = new CreateCabinRequest(
             "Lake Cabin",
@@ -117,6 +121,17 @@ class CabinControllerTest {
             null
         );
 
+        List<Policy> policies = List.of(
+            new Policy(
+                policyId,
+                "Check-in / Check-out",
+                1,
+                List.of(new PolicyItem(policyItemId, "Check-in after 3:00 PM", 1, LocalDateTime.now())),
+                LocalDateTime.now(),
+                null
+            )
+        );
+
         Cabin cabin = new Cabin(
             cabinId,
             request.name(),
@@ -133,7 +148,7 @@ class CabinControllerTest {
             true,
             List.of(new CabinImage("image-key", 1, true)),
             List.of(featureId),
-            List.of(),
+            policies,
             LocalDateTime.now(),
             null
         );
@@ -147,7 +162,13 @@ class CabinControllerTest {
             .andExpect(status().isCreated())
             .andExpect(jsonPath("$.id").value(cabinId.toString()))
             .andExpect(jsonPath("$.name").value("Lake Cabin"))
-            .andExpect(jsonPath("$.imageUrls[0]").value("https://example.com/image-key"));
+            .andExpect(jsonPath("$.imageUrls[0]").value("https://example.com/image-key"))
+            .andExpect(jsonPath("$.policies[0].id").value(policyId.toString()))
+            .andExpect(jsonPath("$.policies[0].title").value("Check-in / Check-out"))
+            .andExpect(jsonPath("$.policies[0].displayOrder").value(1))
+            .andExpect(jsonPath("$.policies[0].items[0].id").value(policyItemId.toString()))
+            .andExpect(jsonPath("$.policies[0].items[0].description").value("Check-in after 3:00 PM"))
+            .andExpect(jsonPath("$.policies[0].items[0].displayOrder").value(1));
     }
 
     @Test
